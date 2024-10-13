@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Loja</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .product {
+            margin: 20px;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ddd;
+            display: inline-block;
+            text-align: left;
+        }
+        .product img {
+            width: 200px;
+            height: 200px;
+        }
+        .product h2 {
+            font-size: 18px;
+            margin: 0;
+        }
+        .product p {
+            font-size: 14px;
+            color: #333;
+        }
+        .buy-button {
+            background-color: #ff5722;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Minha Loja Online</h1>
+    </header>
+    <div class="product">
+        <img src="https://via.placeholder.com/200" alt="Produto 1">
+        <h2>Produto 1</h2>
+        <p>Descrição do produto aqui. Preço: R$ 50,00</p>
+        <button class="buy-button" id="checkout-button">Comprar</button>
+    </div>
+
+    <!-- Scripts Mercado Pago -->
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <script>
+        const mp = new MercadoPago('SUA_PUBLIC_KEY', {
+            locale: 'pt-BR'
+        });
+
+        document.getElementById('checkout-button').addEventListener('click', function () {
+            // Aqui você pode chamar sua API ou o checkout do Mercado Pago
+            mp.checkout({
+                preference: {
+                    id: 'SUA_PREFERENCE_ID'
+                }
+            }).open();
+        });
+    </script>
+</body>
+</html>
