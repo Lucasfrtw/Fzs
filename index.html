@@ -58,9 +58,9 @@
         // Abrir o checkout com autoOpen ao clicar no botão
         document.getElementById('checkout-button').addEventListener('click', function () {
             mp.checkout({
-                autoOpen: true, // Esta opção abre o checkout automaticamente após a instância ser resolvida
+                autoOpen: true, // Abre automaticamente o checkout
                 render: {
-                    container: '.product', // Define onde o botão ou o checkout será renderizado
+                    container: '.product', // Define o container onde o botão ou o checkout será renderizado
                     label: 'Pagar com Mercado Pago' // Texto do botão de pagamento
                 }
             });
