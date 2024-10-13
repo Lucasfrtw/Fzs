@@ -50,20 +50,40 @@
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     
     <script>
-        // Inicializa o Mercado Pago com a sua Public Key
-        const mp = new MercadoPago('APP_USR-4df1793c-768d-48cb-bf21-bb1c9e3c5817', {
-            locale: 'pt-BR'
-        });
+        // A função será acionada quando o botão for clicado
+        const checkoutButton = document.getElementById('checkout-button');
 
-        // Abrir o checkout com autoOpen ao clicar no botão
-        document.getElementById('checkout-button').addEventListener('click', function () {
-            mp.checkout({
-                autoOpen: true, // Abre automaticamente o checkout
-                render: {
-                    container: '.product', // Define o container onde o botão ou o checkout será renderizado
-                    label: 'Pagar com Mercado Pago' // Texto do botão de pagamento
+        checkoutButton.addEventListener('click', async function () {
+            // Fazer requisição ao backend para criar a preferência de pagamento
+            try {
+                const response = await fetch('https://paymentov-6fe6272f1836.herokuapp.com/create_preference', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const data = await response.json(); // Pega o JSON da resposta do backend
+
+                if (data.id) {
+                    const mp = new MercadoPago('APP_USR-4df1793c-768d-48cb-bf21-bb1c9e3c5817', {
+                        locale: 'pt-BR'
+                    });
+
+                    // Abre o Checkout Pro com o preference_id gerado
+                    mp.checkout({
+                        preference: {
+                            id: data.id // O preference_id gerado no backend
+                        },
+                        autoOpen: true // Abre automaticamente o checkout
+                    });
+                } else {
+                    console.error('Erro ao criar preferência');
                 }
-            });
+
+            } catch (error) {
+                console.error('Erro ao conectar com o backend:', error);
+            }
         });
     </script>
 </body>
