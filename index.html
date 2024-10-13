@@ -43,23 +43,25 @@
         <img src="https://via.placeholder.com/200" alt="Produto 1">
         <h2>Produto 1</h2>
         <p>Preço: R$ 50,00</p>
-        <button class="buy-button" id="checkout-button">Comprar</button>
+        <button class="buy-button" id="checkout-button">Pagar com Mercado Pago</button>
     </div>
 
     <!-- SDK do Mercado Pago -->
     <script src="https://sdk.mercadopago.com/js/v2"></script>
     
     <script>
+        // Inicializa o Mercado Pago com a sua Public Key
         const mp = new MercadoPago('APP_USR-4df1793c-768d-48cb-bf21-bb1c9e3c5817', {
             locale: 'pt-BR'
         });
 
+        // Abrir o checkout ao clicar no botão
         document.getElementById('checkout-button').addEventListener('click', function () {
-            // Abrir o Checkout Pro sem preferências diretamente
             mp.checkout({
+                // Abre o Checkout Pro diretamente
                 render: {
-                    container: '.product', // Defina o container onde o checkout será renderizado
-                    label: 'Pagar com Mercado Pago', // O texto do botão
+                    container: '.product', // Container onde o botão ou o checkout será renderizado
+                    label: 'Pagar com Mercado Pago' // Texto do botão de pagamento
                 }
             });
         });
